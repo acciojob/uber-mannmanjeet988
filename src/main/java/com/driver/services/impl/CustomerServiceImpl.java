@@ -66,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
 		tripBooking.setFromLocation(fromLocation);
 		tripBooking.setToLocation(toLocation);
 		tripBooking.setDistanceInKm(distanceInKm);
-		tripBooking.setTripStatus(TripStatus.CONFIRMED);
+		tripBooking.setStatus(TripStatus.CONFIRMED);
 		tripBooking.setBill(distanceInKm * driver.getCab().getPerKmRate());// calculate the bill on the basics of Distance travelled by cab
 
 		tripBooking.setDriver(driver);					   // driver booked for that trip
@@ -90,14 +90,14 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void cancelTrip(Integer tripId) throws Exception {
-		//Cancel the trip having given trip Id and update TripBooking attributes accordingly
+		//Cancel the trip having given tripId and update TripBooking attributes accordingly
        TripBooking tripBooking;
 	   try{
 		  tripBooking = tripBookingRepository2.findById(tripId).get();
 	   } catch(Exception e){
 		   throw new Exception("tripId does not exist");
 	   }
-	   tripBooking.setTripStatus(TripStatus.CANCELED);
+	   tripBooking.setStatus(TripStatus.CANCELED);
 	   tripBooking.setBill(0);
 	   tripBooking.getDriver().getCab().setAvailable(true);
 	   tripBookingRepository2.save(tripBooking);
@@ -105,14 +105,14 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public void completeTrip(Integer tripId) throws Exception {
-		//Complete the trip having given trip Id and update TripBooking attributes accordingly
+		//Complete the trip having given tripId and update TripBooking attributes accordingly
 		TripBooking tripBooking;
 		try{
 			tripBooking = tripBookingRepository2.findById(tripId).get();
 		} catch(Exception e){
 			throw new Exception("tripId does not exist");
 		}
-		tripBooking.setTripStatus(TripStatus.COMPLETED);
+		tripBooking.setStatus(TripStatus.COMPLETED);
 		int bill = tripBooking.getDriver().getCab().getPerKmRate()*tripBooking.getDistanceInKm();
 		tripBooking.setBill(bill);
 		tripBooking.getDriver().getCab().setAvailable(true);
