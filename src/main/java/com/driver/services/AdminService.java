@@ -10,7 +10,7 @@ public interface AdminService {
 
 	public void adminRegister(Admin admin);
 
-	public Admin updatePassword(Integer adminId, String password) throws Exception;
+	public Admin updatePassword(Integer adminId, String password) ;
 
 	public void deleteAdmin(int adminId) ;
 

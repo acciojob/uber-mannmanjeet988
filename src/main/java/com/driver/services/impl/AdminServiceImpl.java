@@ -33,15 +33,16 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Admin updatePassword(Integer adminId, String password) throws Exception {
+	public Admin updatePassword(Integer adminId, String password)  {
 		//Update the password of admin with given id
 		Admin admin;
-		try{
-			admin= adminRepository1.findById(adminId).get();
-		}
-		catch(Exception e){
-			throw new Exception("Admin does not exist in database");
-		}
+		admin= adminRepository1.findById(adminId).get();
+//		try{
+//			admin= adminRepository1.findById(adminId).get();
+//		}
+//		catch(Exception e){
+//			throw new Exception("Admin does not exist in database");
+//		}
 		admin.setPassword(password);
 		return adminRepository1.save(admin);
 	}

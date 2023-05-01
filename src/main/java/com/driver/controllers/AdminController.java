@@ -27,7 +27,7 @@ public class AdminController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Admin> updateAdminPassword(@RequestParam Integer adminId, @RequestParam String password) throws Exception {
+	public ResponseEntity<Admin> updateAdminPassword(@RequestParam Integer adminId, @RequestParam String password)  {
 		Admin updatedAdmin = adminService.updatePassword(adminId,password);
 		return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
 	}
