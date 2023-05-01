@@ -47,15 +47,16 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void deleteAdmin(int adminId) throws Exception {
+	public void deleteAdmin(int adminId)  {
 		// Delete admin without using deleteById function
-		Admin admin;
-		try{
-			admin= adminRepository1.findById(adminId).get();
-		}
-		catch(Exception e){
-			throw new Exception("Admin does not exist in database");
-		}
+	Admin admin;
+//		try{
+//			admin= adminRepository1.findById(adminId).get();
+//		}
+//		catch(Exception e){
+//			throw new Exception("Admin does not exist in database");
+//		}
+		admin= adminRepository1.findById(adminId).get();
 		adminRepository1.delete(admin);
 	}
 

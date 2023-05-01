@@ -55,6 +55,7 @@ public class CustomerServiceImpl implements CustomerService {
 				driver = st;
 		}
 
+
 		// if no driver is available
 		if(driver == null) {
 			throw new Exception("No cab available!");
@@ -73,7 +74,7 @@ public class CustomerServiceImpl implements CustomerService {
 		tripBooking.setCustomer(customer);                 // customer added for that trip
 
 
-		// If cab is booked than cab , Driver and customer not available
+		// If cab is booked then that cab , Driver and customer not available
 		customer.getTripBookingList().add(tripBooking);
 		driver.getTripBookingList().add(tripBooking);
 
@@ -89,14 +90,15 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public void cancelTrip(Integer tripId) throws Exception {
+	public void cancelTrip(Integer tripId)  {
 		//Cancel the trip having given tripId and update TripBooking attributes accordingly
        TripBooking tripBooking;
-	   try{
-		  tripBooking = tripBookingRepository2.findById(tripId).get();
-	   } catch(Exception e){
-		   throw new Exception("tripId does not exist");
-	   }
+//	   try{
+//		  tripBooking = tripBookingRepository2.findById(tripId).get();
+//	   } catch(Exception e){
+//		   throw new Exception("tripId does not exist");
+//	   }
+		tripBooking = tripBookingRepository2.findById(tripId).get();
 	   tripBooking.setStatus(TripStatus.CANCELED);
 	   tripBooking.setBill(0);
 	   tripBooking.getDriver().getCab().setAvailable(true);
@@ -104,14 +106,15 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public void completeTrip(Integer tripId) throws Exception {
+	public void completeTrip(Integer tripId)  {
 		//Complete the trip having given tripId and update TripBooking attributes accordingly
 		TripBooking tripBooking;
-		try{
-			tripBooking = tripBookingRepository2.findById(tripId).get();
-		} catch(Exception e){
-			throw new Exception("tripId does not exist");
-		}
+//		try{
+//			tripBooking = tripBookingRepository2.findById(tripId).get();
+//		} catch(Exception e){
+//			throw new Exception("tripId does not exist");
+//		}
+		tripBooking = tripBookingRepository2.findById(tripId).get();
 		tripBooking.setStatus(TripStatus.COMPLETED);
 		int bill = tripBooking.getDriver().getCab().getPerKmRate()*tripBooking.getDistanceInKm();
 		tripBooking.setBill(bill);
